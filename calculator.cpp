@@ -1,24 +1,5 @@
-/*
-    Simple Calculator in C++
-    -------------------------
-    A basic console calculator that keeps asking for calculations
-    until the user chooses to exit.
-
-    New concepts compared to the tic-tac-toe project:
-      - switch statement       (cleaner than many if-else chains)
-      - functions that RETURN a value (not just void functions)
-      - basic error handling   (division by zero, invalid menu choice)
-      - a "menu-driven" program structure (very common pattern)
-
-    Compile:  g++ -o calculator calculator.cpp
-    Run:      ./calculator
-*/
-
 #include <iostream>
 using namespace std;
-
-// ---- Functions that perform the actual math ----
-// Each takes two doubles (decimal numbers) and returns a double result.
 
 double add(double a, double b) {
     return a + b;
@@ -32,19 +13,15 @@ double multiply(double a, double b) {
     return a * b;
 }
 
-// Division needs extra care: dividing by zero is not allowed.
-// We use a bool "output parameter" (passed by reference with &)
-// to tell the caller whether the division actually succeeded.
 double divide(double a, double b, bool &success) {
     if (b == 0) {
         success = false;
-        return 0; // dummy value, won't be used since success is false
+        return 0; 
     }
     success = true;
     return a / b;
 }
 
-// Prints the menu of operations
 void printMenu() {
     cout << "\n===== SIMPLE CALCULATOR =====\n";
     cout << "1. Add        (+)\n";
@@ -66,7 +43,7 @@ int main() {
         printMenu();
         cin >> option;
 
-        // Handle non-numeric input (e.g. user types a letter)
+    
         if (cin.fail()) {
             cin.clear();
             cin.ignore(1000, '\n');
@@ -74,19 +51,19 @@ int main() {
             continue;
         }
 
-        // Exit option — check this before asking for numbers
+        
         if (option == 5) {
             cout << "Goodbye!\n";
             break;
         }
 
-        // Reject anything outside the valid menu range
+       
         if (option < 1 || option > 4) {
             cout << "Invalid option. Please choose a number between 1 and 5.\n";
             continue;
         }
 
-        // Ask for the two numbers to operate on
+      
         double num1, num2;
         cout << "Enter first number: ";
         cin >> num1;
@@ -101,15 +78,14 @@ int main() {
         }
 
         double result = 0;
-        bool divideSuccess = true; // only relevant for option 4
+        bool divideSuccess = true;
 
-        // switch works like a cleaner set of if-else checks,
-        // when comparing ONE variable against several fixed values.
+       
         switch (option) {
             case 1:
                 result = add(num1, num2);
                 cout << num1 << " + " << num2 << " = " << result << "\n";
-                break; // break stops it from "falling through" to case 2
+                break; 
 
             case 2:
                 result = subtract(num1, num2);
@@ -131,8 +107,7 @@ int main() {
                 break;
 
             default:
-                // Should never be reached because we already validated
-                // "option" above, but it's good practice to have it.
+    
                 cout << "Something went wrong.\n";
                 break;
         }
