@@ -39,6 +39,16 @@
 
 using namespace std;
 
+// M_PI isn't part of the C++ standard, so some compilers don't define it
+// by default (notably MSVC/Visual Studio, unless you define _USE_MATH_DEFINES
+// before including <cmath> — and even that isn't fully reliable). Defining
+// it ourselves here, guarded by #ifndef, means this file compiles correctly
+// everywhere: if M_PI already exists (e.g. on Linux/macOS), this is skipped;
+// if it doesn't, we supply it.
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 namespace Color {
     const string RESET  = "\033[0m";
     const string BOLD   = "\033[1m";
